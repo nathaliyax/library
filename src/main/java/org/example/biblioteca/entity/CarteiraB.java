@@ -1,6 +1,6 @@
 package org.example.biblioteca.entity;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,8 +15,13 @@ import java.util.Date;
 @AllArgsConstructor
 public class CarteiraB {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long numCarteira;
     private Date dataEmis;
     private Boolean isValid;
 
+    @OneToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 }
