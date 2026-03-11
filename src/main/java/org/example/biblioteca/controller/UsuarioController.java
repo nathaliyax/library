@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@RestController
+@RequestMapping("usuarios")
 public class UsuarioController {
 
     @Autowired
@@ -29,12 +31,12 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> searchUser(@PathVariable int id){
+    public ResponseEntity<?> searchUser(@PathVariable long id){
         return ResponseEntity.ok(usuarioService.searchUser(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable int id, @RequestBody UsuarioRequestDTO user) {
+    public ResponseEntity<?> updateUser(@PathVariable long id, @RequestBody UsuarioRequestDTO user) {
         return ResponseEntity.ok(usuarioService.updateUser(id, user));
     }
 }
