@@ -4,11 +4,12 @@ import org.example.biblioteca.DTO.UsuarioRequestDTO;
 import org.example.biblioteca.DTO.UsuarioResponseDTO;
 import org.example.biblioteca.entity.Usuario;
 import org.example.biblioteca.repository.UsuarioRepository;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
@@ -23,15 +24,12 @@ public class UsuarioService {
         return "Usuario salvo com sucesso";
     }
 
-    public String findUser(Usuario user){
-        Usuario findUser = usuarioRepository.findByEmail(user.getEmail());
-
     public List<UsuarioResponseDTO> listUsers(){
         List<Usuario> usuarios = usuarioRepository.findAll();
         List<UsuarioResponseDTO> usuariosDTO = usuarios.stream()
                 .map(usuario -> new UsuarioResponseDTO(usuario))
                 .toList();
-        return usuarioDTO;
+        return usuariosDTO;
     }
 
     public String deleteUser(long id){
@@ -43,13 +41,12 @@ public class UsuarioService {
         }
     }
 
-    public UsuarioResponseDTO searchUser(@PathVariable long id){
+    public UsuarioResponseDTO searchUser(long id){
         Optional<Usuario> usuario = usuarioRepository.findById(id);
         if (usuario.isEmpty()) {
             return null;
         }
-        UsuarioResponseDTO usuarioResponseDTO = new UsuarioResponseDTO(usuario.get());
-        return usuarioResponseDTO;
+        return new UsuarioResponseDTO(usuario.get());
     }
 
     public String updateUser(long id, UsuarioRequestDTO user) {
@@ -60,7 +57,7 @@ public class UsuarioService {
             updateUser.setNome(user.getNome());
             updateUser.setEmail(user.getEmail());
             usuarioRepository.save(updateUser);
-            return "Usuario deletado com sucesso";
+            return "Usuario atualizado com sucesso";
         }
     }
 }
