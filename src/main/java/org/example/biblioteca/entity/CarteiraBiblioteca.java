@@ -13,12 +13,12 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CarteiraB {
+public class CarteiraBiblioteca {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long numCarteira;
-    private Date dataEmis;
+    private long numeroCarteira;
+    private Date dataEmissao;
     private Boolean isValid;
 
     @OneToOne
