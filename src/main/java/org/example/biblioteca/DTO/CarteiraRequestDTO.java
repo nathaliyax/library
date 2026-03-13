@@ -8,6 +8,6 @@ import java.util.Date;
 @Getter
 @Setter
 public class CarteiraRequestDTO {
-    private Date dataEmis;
+    private Date dataEmissao;
     private Boolean isValid;
 }

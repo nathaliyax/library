@@ -1,12 +1,8 @@
 package org.example.biblioteca.service;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.example.biblioteca.DTO.CarteiraRequestDTO;
 import org.example.biblioteca.DTO.CarteiraResponseDTO;
-import org.example.biblioteca.entity.CarteiraB;
+import org.example.biblioteca.entity.CarteiraBiblioteca;
 import org.example.biblioteca.entity.Usuario;
 import org.example.biblioteca.repository.CarteiraBRepository;
 import org.example.biblioteca.repository.UsuarioRepository;
@@ -25,15 +21,15 @@ public class CarteiraService {
     }
 
     public Object criarCarteira(long usuarioId, CarteiraRequestDTO dto) {
-        Optional<Usuario> usuarioOpt = usuarioRepository.findById(usuarioId);
-        if (usuarioOpt.isEmpty()) {
+        Optional<Usuario> usuariopt = usuarioRepository.findById(usuarioId);
+        if (usuariopt.isEmpty()) {
             return "Usuário não encontrado!";
         }
 
-        CarteiraB carteira = new CarteiraB();
-        carteira.setDataEmis(dto.getDataEmis());
+        CarteiraBiblioteca carteira = new CarteiraBiblioteca();
+        carteira.setDataEmissao(dto.getDataEmissao());
         carteira.setIsValid(dto.getIsValid());
-        carteira.setUsuario(usuarioOpt.get());
+        carteira.setUsuario(usuariopt.get());
 
         carteiraRepository.save(carteira);
         return new CarteiraResponseDTO(carteira);
